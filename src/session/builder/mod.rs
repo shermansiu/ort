@@ -139,6 +139,16 @@ impl SessionBuilder {
 		})
 	}
 
+	pub(crate) fn add_config_entry_with_byte_value(&mut self, key: &str, value: &[u8]) -> Result<()> {
+		let ptr = self.ptr_mut();
+		with_cstr(key.as_bytes(), &|key| {
+			with_cstr(value, &|value| {
+				ortsys![unsafe AddSessionConfigEntry(ptr, key.as_ptr(), value.as_ptr())?];
+				Ok(())
+			})
+		})
+	}
+
 	/// Adds a custom configuration entry to the session.
 	pub fn with_config_entry(mut self, key: impl AsRef<str>, value: impl AsRef<str>) -> Result<Self> {
 		self.add_config_entry(key.as_ref(), value.as_ref())?;

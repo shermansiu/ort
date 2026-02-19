@@ -104,4 +104,11 @@ impl SessionBuilder {
 		self.add_config_entry("session.disable_cpu_ep_fallback", "1")?;
 		Ok(self)
 	}
+
+	// Add external ONNX data file
+	pub fn with_external_data(mut self, data: &[u8]) -> Result<Self> {
+		self.add_config_entry_with_byte_value("externalData.data", data);
+		self.add_config_entry("externalData.path", "model.onnx_data");
+		Ok(self)
+	}
 }
