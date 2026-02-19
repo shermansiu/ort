@@ -355,7 +355,7 @@ impl EnvironmentBuilder {
 	pub(crate) fn new() -> Self {
 		EnvironmentBuilder {
 			name: String::from("default"),
-			telemetry: true,
+			telemetry: false,
 			execution_providers: SmallVec::new(),
 			global_thread_pool_options: None,
 			logger: None
